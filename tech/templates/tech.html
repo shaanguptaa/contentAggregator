@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Content Aggregator - Tech</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pre-loader.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style-tech.css' %}">
+
+    <style>
+        body {
+            background-image: url("{% static 'images/bg.jpg' %}");
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!--CSS Spinner-->
+    <div class="preloader-container">
+        <div class="pre-loader">
+            <div class="sk-cube-grid">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid m-0 p-2 top-nav">
+        <div class="row">
+            <div class="col-3">
+                <a href="/"><div class="logo ms-3 mt-2">Content Aggregator</div></a>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-3 nav mt-3" style="float: right;">
+                <a href="/"><div class="ms-2 me-2 nav-item">Home</div></a> |
+                <a href="/news/"><div class="ms-2 me-2 nav-item">News</div></a> |
+                <a href="/tech/"><div class="ms-2 me-2 nav-item">Tech</div></a> |
+                <a href="/stocks/"><div class="ms-2 me-2 nav-item">Stocks</div></a>
+            </div>
+        </div>
+    </div>
+
+    <!--Content-->
+    {% for site in sites %}
+    <section class="wrapper" style="margin-top: 100px;">
+        <h3 class="section-head"><a href="{{site.url}}" class="site-link" target="_blank">{{site.name}} Articles:</a> </h3>
+        <div class="container mt-3">
+            <div class="row row-cols-3 row-cols-md-3 g-4">
+              {% for article in site.articles %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <!--                    <img src="..." class="card-img-top" alt="...">-->
+                            <div class="card-body">
+                                <h5 class="card-title">{{article.title}}</h5>
+                                <a href="{{article.url}}" class="stretched-link" target="_blank"></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endfor %}
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+</body>
+
+</html>

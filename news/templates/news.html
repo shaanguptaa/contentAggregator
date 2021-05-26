@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Content Aggregator - News</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pre-loader.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style-news.css' %}">
+
+    <style>
+        body {
+            background-image: url("{% static 'images/bg.jpg' %}");
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!--CSS Spinner-->
+    <div class="preloader-container">
+        <div class="pre-loader">
+            <div class="sk-cube-grid">
+                <div class="sk-cube sk-cube1"></div>
+                <div class="sk-cube sk-cube2"></div>
+                <div class="sk-cube sk-cube3"></div>
+                <div class="sk-cube sk-cube4"></div>
+                <div class="sk-cube sk-cube5"></div>
+                <div class="sk-cube sk-cube6"></div>
+                <div class="sk-cube sk-cube7"></div>
+                <div class="sk-cube sk-cube8"></div>
+                <div class="sk-cube sk-cube9"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid m-0 p-2 top-nav">
+        <div class="row">
+            <div class="col-3">
+                <a href="/"><div class="logo ms-3 mt-2">Content Aggregator</div></a>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-3 nav mt-3" style="float: right;">
+                <a href="/"><div class="ms-2 me-2 nav-item">Home</div></a> |
+                <a href="/news/"><div class="ms-2 me-2 nav-item">News</div></a> |
+                <a href="/tech/"><div class="ms-2 me-2 nav-item">Tech</div></a> |
+                <a href="/stocks/"><div class="ms-2 me-2 nav-item">Stocks</div></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid row">
+        <div class="col-2">
+            <!--Side Nav-->
+            <div class="sidenav">
+                <p class="side-head">Content Aggregator</p>
+                <form class="sidenav-form" action="" method="POST" style="position: absolute; margin-left: 20px; margin-top: 60px;">
+                    {% csrf_token %}
+                    <label class="mb-2">Filter Sites :</label>
+                    {% for chk_box in chk_boxes %}
+                        <div class="form-group">
+                            <input type="checkbox" class="" name="{{chk_box.shrt_name}}-news-chkbox" id="{{chk_box.shrt_name}}-news-chkbox" value="{{chk_box.name}}" {{chk_box.isChecked}}>
+                            <label for="{{chk_box.shrt_name}}-news-chkbox" class="" style="color: black;">{{chk_box.name}}</label>
+                        </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <input type="submit" name="filter" class="btn btn-primary mt-2" value="Filter" style="width: 100%;">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <div class="col-10 content mt-5">
+            <div class="main">
+                {% for site in sites %}
+                <center>
+                    <section class="wrapper container-fluid mb-5">
+                        <h3 class="section-head mt-5">
+                            <a href="{{site.url}}" class="site-link" target="_blank">{{site.name}} - Latest News:</a>
+                            </h3>
+                        {% for news in site.news_list %}
+                        <a href="{{news.url}}" class="item-link" target="_blank">
+                            <div class="item clearfix">
+                                <div class="item-img">
+                                    <h2>{{news.date}}</h2>
+                                    <h3>{{news.month}}</h3>
+                                </div>
+                                
+                                <div class="item-body" style="color: whitesmoke; letter-spacing: 1px;">
+                                    <h3 class="item-title">{{news.heading}}</h3>
+
+                                    <p class="item-text">{{news.summary}}</p>
+                                </div>
+                                
+                            </div>
+                        </a>
+                        {% endfor %}
+                        <a href="{{site.url}}" class="site-link mt-2" target="_blank" style="float: right; letter-spacing: 1px; font-size: 12px;">See more &#8594;</a>
+                    </section>
+                </center>
+                {% endfor %}
+            </div>
+        
+        </div>
+
+
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+body {
+    overflow-x: hidden;
+}
+
+
+section {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.section-head {
+    margin-left: 100px;
+}
+
+.h-company {
+	position: relative;
+	left: 50px;
+}
+
+.r-company {
+	position: relative;
+	left: 20px;
+}
+
+table {
+	margin-top: 20px;
+}
+
+th {
+	text-align: center;
+}
+
+.company-th {
+	text-align: left;
+}
+
+.r-td-right {
+	text-align: right;
+}
+
+.r-high, .r-low, .r-last, .r-prev {
+	position: relative;
+    right: 50px !important;
+}
