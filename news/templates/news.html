@@ -99,9 +99,11 @@
                                     </div>
                                     
                                     <div class="item-body" style="color: whitesmoke; letter-spacing: 1px;">
-                                        <h3 class="item-title">{{news.heading}}</h3>
+                                        {% autoescape off %}
+                                            <h3 class="item-title">{{news.heading}}</h3>
 
-                                        <p class="item-text">{{news.summary}}</p>
+                                            <p class="item-text">{{news.summary}}</p>
+                                        {% endautoescape %}
                                     </div>
                                     
                                 </div>
