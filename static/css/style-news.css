@@ -7,13 +7,6 @@ body {
     font-family: sans-serif;
 }
 
-.preloader-container {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 10;
-}
-
 .sidenav {
   height: 100%;
   width: 200px;
@@ -76,6 +69,18 @@ a {
 
 .nav-item {
     color: white;
+}
+
+.nav-item.active::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: 100%;
+    background-color: lightgray;   
+}
+
+a[disabled] {
+    cursor: not-allowed;
 }
 
 .section-head {

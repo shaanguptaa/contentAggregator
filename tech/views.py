@@ -1,18 +1,13 @@
 from django.shortcuts import render
 import feedparser
-from tech.models import TechSite, TechArticle
+from tech import __sites
 
 
-def get_articles(rss, source):
-    try:
-        tech_articles = TechArticle.objects.get(source=source)
-        tech_articles.delete()
-    except Exception:
-        pass
+def get_articles(rss):
 
     feed = feedparser.parse(rss)
     articles = []
-    for entry in feed['entries']:
+    for entry in feed['entries'][:9]:
         # desc = ''
         # if 'description' in entry:
         #     desc = entry.description.split('</a>')[-1]
@@ -25,16 +20,12 @@ def get_articles(rss, source):
 
         data = {'title': entry.title, 'url': entry.link}
         articles.append(data)
-
-        tech_article = TechArticle(title=entry.title, url=entry.link, source=source)
-        tech_article.save()
-
     return articles
 
 
 # Create your views here.
 def index(request):
     sites = []
-    for site in TechSite.objects.all():
-        sites.append({'name': site.name, 'url': site.url, 'articles': get_articles(site.rss_link, site.name)})
+    for site in __sites:
+        sites.append({'name': site.name, 'url': site.url, 'articles': get_articles(site.rss_link)})
     return render(request, 'tech.html', {'sites': sites})

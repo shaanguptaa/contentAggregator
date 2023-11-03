@@ -1,10 +1,8 @@
-
-$(document).ready(function() {
-    //Preloader
-    preloaderFadeOutTime = 500;
-    function hidePreloader() {
-        var preloader = $('.pre-loader');
-        preloader.fadeOut(preloaderFadeOutTime);
-    }
-    hidePreloader();
-});
+window.onload = function() {
+    const preLoader = document.querySelector('.pre-loader');
+    preLoader.style.opacity = 0;
+    preLoader.addEventListener('transitionend', function() {
+        preLoader.remove();
+    });
+    // document.querySelector('.pre-loader').remove();
+};
