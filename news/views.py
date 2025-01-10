@@ -9,15 +9,13 @@ def get_news(rss):
     feed = feedparser.parse(rss)
     news = []
     for entry in feed['entries'][:6]:
-        desc = ''
+        desc = entry.title
         if 'description' in entry:
             desc = entry.description.split('</a>')[-1]
             desc = desc.split('<')[0]
         elif 'summary' in entry:
             desc = entry.summary.split('</a>')[-1]
             desc = desc.split('<')[0]
-        if desc == '':
-            desc = entry.title
 
         published = parse(entry.published) if 'published' in entry else parse(entry.pubDate)
 
@@ -29,7 +27,7 @@ def get_news(rss):
 def index(request):
     sites = []
     chk_boxes = []
-    if request.method == ' POST':
+    if request.method == 'POST':
         for site in __sites:
             isChecked = ''
             if request.POST.get(site.short_name + '-news-chkbox'):
